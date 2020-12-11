@@ -4,6 +4,8 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
   apt-get -y --no-install-recommends install \
+    ca-certificates \
+    build-essential \
     git \
     cmake \
     liblmdb-dev \
@@ -12,7 +14,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /home
-RUN git config --global http.sslverify false
+#RUN git config --global http.sslverify false
 RUN git clone https://github.com/Maithem/dbe.git
 WORKDIR /home/dbe
-RUN cmake . && make
+#RUN cmake . && make
