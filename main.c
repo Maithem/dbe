@@ -17,12 +17,12 @@ int main() {
 
   LOG_INFO("Started!");
 
-  uint num_keys = 10000d000;
+  uint num_keys = 10000000;
   size_t key_size = 100;
   size_t val_size = 100;
 
-  char *db_path = "/tmp/lmdb";
-  char *db_data_path = "/tmp/lmdb/data.mdb";
+  char *db_path = "lmdb";
+  char *db_data_path = "lmdb/data.mdb";
 
   int rc;
   MDB_env *env;
@@ -39,7 +39,7 @@ int main() {
   }
 
   rc = remove(db_data_path);
-  if (rc) {
+  if (rc && errno != ENOENT) {
     perror("remove");
     exit(1);
   }
