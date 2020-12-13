@@ -4,6 +4,8 @@
 /tags
 log/
 
+targetfs/
+
 # vim swap files
 *.swp
 *.swo
