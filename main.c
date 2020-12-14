@@ -18,7 +18,7 @@ int main() {
   LOG_INFO("Started!");
 
   uint num_keys = 10000000;
-  size_t key_size = 100;
+  size_t key_size = 64;
   size_t val_size = 100;
 
   char *db_path = "lmdb";

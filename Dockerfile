@@ -10,7 +10,7 @@ RUN apt-get update && \
     cmake \
     liblmdb-dev \
     nano && \
-  apt-get -y install clang-8 libaio-dev llvm strace && \
+  apt-get -y install gdb clang-8 libaio-dev llvm strace valgrind kcachegrind && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
