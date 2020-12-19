@@ -28,7 +28,7 @@ int main() {
   MDB_env *env;
   MDB_txn *txn;
   MDB_dbi dbi;
-  int env_opt = 0 | MDB_NOSYNC;
+  int env_opt = 0 | MDB_NOSYNC | MDB_NOMETASYNC;
   size_t msize;
   unsigned int max_readers = 8;
 
