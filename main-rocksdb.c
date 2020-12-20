@@ -47,9 +47,11 @@ int main(int argc, char **argv) {
         }
         assert(!err);
 
+        /**
         if (idx % 50000 == 0) {
             LOG_INFO("%" PRIu64 "\n", idx);
         }
+         **/
 
     }
 

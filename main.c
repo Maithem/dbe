@@ -13,11 +13,20 @@
             exit(1);            \
             } while (0)
 
+
+// Fast PRNG from https://github.com/lemire/Code-used-on-Daniel-Lemire-s-blog/blob/master/2019/03/19/fastestrng.cpp
+static __uint128_t g_lehmer64_state3 = (__uint128_t)5135432;
+extern int unsigned long long lehmer64_3(void);
+inline unsigned long long lehmer64_3() {
+    g_lehmer64_state3 *= 0xda942042e4dd58b5ull;
+    return g_lehmer64_state3 >> 64;
+}
+
 int main() {
 
   LOG_INFO("Started!");
 
-  uint num_keys = 10000000;
+  uint num_keys = 1000000;
   size_t key_size = 64;
   size_t val_size = 100;
 
@@ -89,10 +98,12 @@ int main() {
   data.mv_data = val_arr;
   data.mv_size = sizeof(val_arr);
 
+  uint sync_interval = 100000;
   for (uint64_t idx = 0; idx < num_keys; idx++) {
 
     uint64_t *ptr = key_arr;
     ptr[0] = idx;
+    //ptr[0] = lehmer64_3();
 
     rc = mdb_txn_begin(env, NULL, 0, &txn);
     if (rc)
@@ -103,6 +114,13 @@ int main() {
       LMDB_FAILURE(rc);
 
     rc = mdb_txn_commit(txn);
+
+    if (idx % sync_interval == 0) {
+        //rc = mdb_env_sync(env, 1);
+        //if (rc)
+          //  LMDB_FAILURE(rc);
+    }
+
     if (rc)
       LMDB_FAILURE(rc);
   }
